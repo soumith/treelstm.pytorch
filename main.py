@@ -132,27 +132,27 @@ def main():
     best = -float('inf')
     for epoch in range(args.epochs):
         train_loss             = trainer.train(train_dataset)
-        train_loss, train_pred = trainer.test(train_dataset)
+        # train_loss, train_pred = trainer.test(train_dataset)
         dev_loss, dev_pred     = trainer.test(dev_dataset)
-        test_loss, test_pred   = trainer.test(test_dataset)
+        # test_loss, test_pred   = trainer.test(test_dataset)
 
-        train_pearson = metrics.pearson(train_pred,train_dataset.labels)
-        train_mse = metrics.mse(train_pred,train_dataset.labels)
-        print('==> Train    Loss: {}\tPearson: {}\tMSE: {}'.format(train_loss,train_pearson,train_mse))
+        # train_pearson = metrics.pearson(train_pred,train_dataset.labels)
+        # train_mse = metrics.mse(train_pred,train_dataset.labels)
+        # print('==> Train    Loss: {}\tPearson: {}\tMSE: {}'.format(train_loss,train_pearson,train_mse))
         dev_pearson = metrics.pearson(dev_pred,dev_dataset.labels)
         dev_mse = metrics.mse(dev_pred,dev_dataset.labels)
         print('==> Dev      Loss: {}\tPearson: {}\tMSE: {}'.format(dev_loss,dev_pearson,dev_mse))
-        test_pearson = metrics.pearson(test_pred,test_dataset.labels)
-        test_mse = metrics.mse(test_pred,test_dataset.labels)
-        print('==> Test     Loss: {}\tPearson: {}\tMSE: {}'.format(test_loss,test_pearson,test_mse))
+        # test_pearson = metrics.pearson(test_pred,test_dataset.labels)
+        # test_mse = metrics.mse(test_pred,test_dataset.labels)
+        # print('==> Test     Loss: {}\tPearson: {}\tMSE: {}'.format(test_loss,test_pearson,test_mse))
 
-        if best < test_pearson:
-            best = test_pearson
-            checkpoint = {'model': trainer.model.state_dict(), 'optim': trainer.optimizer,
-                          'pearson': test_pearson, 'mse': test_mse,
-                          'args': args, 'epoch': epoch }
-            print('==> New optimum found, checkpointing everything now...')
-            torch.save(checkpoint, '%s.pt' % os.path.join(args.save, args.expname+'.pth'))
+        # if best < test_pearson:
+        #     best = test_pearson
+        #     checkpoint = {'model': trainer.model.state_dict(), 'optim': trainer.optimizer,
+        #                   'pearson': test_pearson, 'mse': test_mse,
+        #                   'args': args, 'epoch': epoch }
+        #     print('==> New optimum found, checkpointing everything now...')
+        #     torch.save(checkpoint, '%s.pt' % os.path.join(args.save, args.expname+'.pth'))
 
 if __name__ == "__main__":
     main()

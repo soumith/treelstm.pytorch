@@ -25,7 +25,7 @@ class Trainer(object):
             if self.args.cuda:
                 linput, rinput = linput.cuda(), rinput.cuda()
                 target = target.cuda()
-            output = self.model(ltree,linput,rtree,rinput)
+            output = self.model(linput, rinput, ltree, rtree)
             err = self.criterion(output, target)
             loss += err.data[0]
             err.backward()
@@ -49,7 +49,7 @@ class Trainer(object):
             if self.args.cuda:
                 linput, rinput = linput.cuda(), rinput.cuda()
                 target = target.cuda()
-            output = self.model(ltree,linput,rtree,rinput)
+            output = self.model(linput, rinput, ltree, rtree)
             err = self.criterion(output, target)
             loss += err.data[0]
             output = output.data.squeeze().cpu()

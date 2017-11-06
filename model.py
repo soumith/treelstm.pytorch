@@ -85,7 +85,8 @@ class ChildSumLSTMCell(nn.Module):
             forget_gates = F.sigmoid(f_act) # (N, K, C)
         else:
             # for leaf nodes, summation of children hidden states are zeros.
-            hs = torch.zeros_like(i2h_slices[0])
+            # in > 0.2 you can use torch.zeros_like for this
+            hs = Var(i2h_slices[0].data.new(*i2h_slices[0].size()).fill_(0))
 
         # FC for i, u, o gates, from summation of children states to hidden state
         hs2h_iuo = F.linear(hs, hs2h_weight, hs2h_bias)
